@@ -1,28 +1,27 @@
 package com.preqel.kotlinproject.module
 
+import android.util.Log
 import com.preqel.kotlinproject.NetServcie
 import com.preqel.kotlinproject.data.Book
 import dagger.Module
 import dagger.Provides
 import rx.Observable
-import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 /**
  * Created by preqel on 2018/9/28.
- * dagger module
  */
-@Singleton
+  @Singleton
 @Module
-class BookModule{
+class OneModule {
 
     constructor()
 
     @Singleton
     @Provides
-    @Named("red")
-    fun provideBook(): Observable<Book> {
+    fun provideOne(): Observable<Book> {
+        Log.d("TAG","preqel")
         return NetServcie.getRetrofit()
     }
+
 }

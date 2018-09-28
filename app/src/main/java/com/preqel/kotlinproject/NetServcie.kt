@@ -1,8 +1,6 @@
 package com.preqel.kotlinproject
 
-import com.preqel.kotlinproject.data.MyResponse
-import dagger.Provides
-import okhttp3.Callback
+import com.preqel.kotlinproject.data.Book
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
@@ -17,7 +15,7 @@ class NetServcie{
     companion object {
         private val url: String = "www.baidu.com"
 
-        fun getRetrofit (): Observable<MyResponse> {
+        fun getRetrofit (): Observable<Book> {
             val retrofit: Retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).client(
                     OkHttpClient()
             ).baseUrl(url).build()

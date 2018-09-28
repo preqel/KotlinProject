@@ -1,9 +1,7 @@
 package com.preqel.kotlinproject
 
-import com.preqel.kotlinproject.data.MyResponse
-import retrofit2.Call
+import com.preqel.kotlinproject.data.Book
 import retrofit2.http.GET
-import retrofit2.http.PATCH
 import retrofit2.http.Path
 import rx.Observable
 
@@ -14,7 +12,7 @@ interface NetApi {
 
         //访问接口
       @GET("user/repo")
-      fun listRepo(@Path("user")  user:String): Observable<MyResponse>
+      fun listRepo(@Path("user")  user:String): Observable<Book>
 
 
 }
