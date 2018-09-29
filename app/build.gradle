@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -34,4 +34,6 @@ dependencies {
     compile 'com.google.dagger:dagger:2.4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     kapt 'com.google.dagger:dagger-compiler:2.4'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    compile "io.reactivex:rxkotlin:1.0.0"
 }

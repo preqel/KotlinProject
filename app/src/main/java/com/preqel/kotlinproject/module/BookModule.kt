@@ -19,10 +19,11 @@ class BookModule{
 
     constructor()
 
-    @Singleton
+
     @Provides
-    @Named("red")
-    fun provideBook(): Observable<Book> {
+    @Singleton
+    fun provideOne(): Observable<com.preqel.kotlinproject.data.Book> {
+//       return  Observable.just(Book("123"));
         return NetServcie.getRetrofit()
     }
 }
