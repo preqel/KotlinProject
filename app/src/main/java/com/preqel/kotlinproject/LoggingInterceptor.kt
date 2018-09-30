@@ -13,14 +13,19 @@ import okhttp3.ResponseBody
 class LoggingInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.i("TAG","interceptor has been executed" )
         val request: Request = chain.request()
         val t1: Long = System.nanoTime();
-        Log.i("TAG", String.format("Sending request ${request.url()}"))
+        Log.i("TAG", String.format("Sending URL: ${request.url()}"))
         val respnse = chain.proceed(request)
-        val t2: Long = System.nanoTime()
-        val respnsebody: ResponseBody = respnse.peekBody(1024 * 2014)
-        Log.i("TAG","preqel:" + respnsebody.string())
+//        val t2: Long = System.nanoTime()
+//        val respnsebody: ResponseBody = respnse.peekBody(1024 * 2014)
+//        Log.i("TAG","preqel:" + respnsebody.string())
         return respnse
+        //        val t2: Long = System.nanoTime()
+//        val mediatype =  respnse.body().contentType();
+//        val responsebody = respnse.body().toString();
+//        val respnsebody: ResponseBody = respnse.peekBody(1024 * 2014)
+//        Log.i("TAG","preqel Response:" + respnsebody.string())
+//        return respnse.newBuilder().body(ResponseBody.create(mediatype,responsebody)).build()
     }
 }

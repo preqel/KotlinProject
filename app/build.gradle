@@ -36,4 +36,5 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.4'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile "io.reactivex:rxkotlin:1.0.0"
+    compile 'com.android.support:recyclerview-v7:27.1.1'
 }

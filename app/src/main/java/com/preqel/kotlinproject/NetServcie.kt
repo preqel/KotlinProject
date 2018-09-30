@@ -22,8 +22,9 @@ class NetServcie{
         fun getRetrofit(): Observable<Weather> {
             Log.d("TAG","getNEtService");
             val okHttpClient = OkHttpClient.Builder().addNetworkInterceptor(LoggingInterceptor()).build()
-            val retrofit: Retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+            val retrofit: Retrofit = Retrofit.Builder()
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .baseUrl(url)
                     .build()
