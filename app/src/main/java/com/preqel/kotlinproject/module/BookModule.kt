@@ -22,7 +22,7 @@ class BookModule{
 
     @Provides
     @Singleton
-    fun provideOne(): Observable<com.preqel.kotlinproject.data.Book> {
+    fun provideOne(): Observable<com.preqel.kotlinproject.data.Weather> {
 //       return  Observable.just(Book("123"));
         return NetServcie.getRetrofit()
     }

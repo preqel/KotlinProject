@@ -7,6 +7,7 @@ import okhttp3.Response
 import okhttp3.ResponseBody
 
 /**
+ * 日志拦截器
  * Created by preqel on 2018/9/28.
  */
 class LoggingInterceptor : Interceptor {
