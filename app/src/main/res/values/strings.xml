@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KotlinProject</string>
+    <string name="title_introduce">请输入要查询的城市：（我们会帮你查询这座城市未来5天的天气）</string>
 </resources>

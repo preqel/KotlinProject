@@ -4,30 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.preqel.kotlinproject.MainActivity">
+    tools:context="com.preqel.kotlinproject.BookActivity">
 
     <LinearLayout
+        android:id="@+id/ll_top"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查询城市" />
+            android:text="@string/title_introduce" />
 
-        <TextView
-            android:id="@+id/tv_city"
+        <EditText
+            android:id="@+id/et_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="杭州"
+             />
+        <Button
+            android:id="@+id/btn_query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="杭州" />
+            android:text="查询"/>
 
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_top"
         android:id="@+id/mlistview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

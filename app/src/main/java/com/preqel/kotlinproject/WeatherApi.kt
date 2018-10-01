@@ -10,7 +10,7 @@ import rx.Observable
 /**
  * Created by preqel on 2018/9/28.
  */
-interface NetApi {
+interface WeatherApi {
 
     //访问接口，获得天气(老的)
     @GET("/telematics/v3/weather?city=CHSH000000&language=zh-chs")

@@ -12,14 +12,16 @@ import rx.Observable
 /**
  * Created by preqel on 2018/9/28.
  */
-class NetServcie{
+class ServcieFactory{
 
     companion object {
 
         private val url:String = "http://t.weather.sojson.com"
         //private val url: String = "http://api.map.baidu.com"
 
-        fun getRetrofit(): Observable<Weather> {
+        private val url2:String = "http://cdn.sojson.com"
+
+        fun <T> getRetrofit(clazz:Class<T> ): T {
             Log.d("TAG","getNEtService");
             val okHttpClient = OkHttpClient.Builder().addNetworkInterceptor(LoggingInterceptor()).build()
             val retrofit: Retrofit = Retrofit.Builder()
@@ -28,9 +30,23 @@ class NetServcie{
                     .client(okHttpClient)
                     .baseUrl(url)
                     .build()
-            val netapi: NetApi = retrofit.create(NetApi::class.java)
-            return netapi.getWeather("101210101" )
+            return  retrofit.create(clazz)
         }
+
+
+        fun <T> getRetrofit2(clazz: Class<T>):T{
+            val okHttpClient = OkHttpClient.Builder().addNetworkInterceptor(LoggingInterceptor()).build()
+            val retrofit: Retrofit = Retrofit.Builder()
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .baseUrl(url2)
+                    .build()
+            return  retrofit.create(clazz)
+
+        }
+
+
     }
 
 }
