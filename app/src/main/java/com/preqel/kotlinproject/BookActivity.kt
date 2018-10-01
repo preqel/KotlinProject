@@ -1,15 +1,20 @@
 package com.preqel.kotlinproject
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import com.preqel.kotlinproject.adapter.BookAdpater
 import com.preqel.kotlinproject.data.*
 import com.preqel.kotlinproject.module.BookModule
 import com.preqel.kotlinproject.module.DaggerBookComponent
+import kotlinx.android.synthetic.main.activity_book.*
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.lang.kotlin.subscribeBy
@@ -27,48 +32,71 @@ class BookActivity:AppCompatActivity {
     @Inject
     lateinit var mBookObservable: Observable<Weather>
 
+
     @Inject
-    lateinit var mCityObservable:Observable<Array<City>>
+    lateinit var mCityObservable: Observable<Array<City>>
 
-    lateinit var btn_Query:Button
-
-
+    lateinit var btn_Query: Button
 
     lateinit var mlistview: RecyclerView
 
-    var list: Array<ForeCast>?= null
+    var list: Array<ForeCast>? = null
+
+    var list_city: Array<City>? = null
+
+   var list_city_name :Array<String>?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
         DaggerBookComponent.builder().bookModule(BookModule()).build().inject(this)
-        initView()
         initObservable()
+        initView()
         mlistview = findViewById(R.id.mlistview);
         mlistview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
     }
 
+
     private fun initView() {
         btn_Query= findViewById(R.id.btn_query)
         btn_Query.setOnClickListener {
-            queryByCity()
+
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                    builder.setIcon(R.drawable.ic_launcher_background)
+                    builder.setTitle("选择一个城市")
+                    list_city_name = Array(list_city!!.size, { i -> list_city!!.get(i).city_name })
+                    builder.setItems(list_city_name, DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
+                        et_city.setText(list_city_name!![which])
+                        val observable:Observable<Weather> = ServcieFactory.getRetrofit(WeatherApi::class.java).getWeather(list_city!!.get(which).city_code)
+                        refreshDate(observable)
+                    }).show()
+
         }
     }
 
-    private fun queryByCity() {
+    private fun queryByCity(text:String) {
         mCityObservable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy({
-                    val list = it
+                    list_city = it
+                    it.forEach {
+                        list_city_name
+                        it.city_name }
                     Log.d("TAG", " mCityObservable Success")
                 }, {
                     Log.d("TAG", "mCityObservable failed ${it.message}")
                 })
     }
 
+
     private fun initObservable() {
-        queryByCity()
-        mBookObservable.subscribeOn(Schedulers.newThread())
+        queryByCity("")
+        refreshDate(mBookObservable)
+    }
+
+    private fun refreshDate(observable: Observable<Weather>) {
+        observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy({
                     Log.d("TAG", "on success executed ${it.time}")
