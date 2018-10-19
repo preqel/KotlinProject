@@ -33,9 +33,7 @@ class BookAdpater(private val context: Context, private val data: Array<ForeCast
 
     inner class BookViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var textview_date: TextView = view.findViewById(R.id.tv_date);
-
         var textview_hign:TextView = view.findViewById(R.id.tv_hign)
-
         var textview_low :TextView = view.findViewById(R.id.tv_low)
     }
 }
