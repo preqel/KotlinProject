@@ -8,12 +8,13 @@
 
     <LinearLayout
         android:id="@+id/ll_top"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/tv_book"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_introduce" />
@@ -22,21 +23,23 @@
             android:id="@+id/et_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="杭州"
-             />
+            android:hint="杭州" />
+
         <Button
             android:id="@+id/btn_query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="切换"/>
+            android:text="切换" />
 
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/ll_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/mlistview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ll_top" />
 
 </android.support.constraint.ConstraintLayout>

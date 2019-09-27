@@ -1,6 +1,7 @@
 package com.preqel.kotlinproject
 
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.preqel.kotlinproject.adapter.BookAdpater
 import com.preqel.kotlinproject.data.*
@@ -19,6 +21,7 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.lang.kotlin.subscribeBy
 import rx.schedulers.Schedulers
+import rx.schedulers.Schedulers.test
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -36,6 +39,8 @@ class BookActivity:AppCompatActivity {
     lateinit var mCityObservable: Observable<Array<City>>
 
     lateinit var btn_Query: Button
+
+    lateinit var tv_title:TextView
 
     lateinit var mlistview: RecyclerView
 
@@ -55,12 +60,11 @@ class BookActivity:AppCompatActivity {
         mlistview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
     }
 
-
     private fun initView() {
         btn_Query= findViewById(R.id.btn_query)
         btn_Query.setOnClickListener {
 
-            if(list_city!!.size<= 0  ){
+            if(list_city == null || list_city!!.size<= 0  ){
                 return@setOnClickListener
             }
 
@@ -76,6 +80,15 @@ class BookActivity:AppCompatActivity {
             }).show()
 
         }
+        tv_title = findViewById(R.id.tv_book)
+        tv_title.isBold()
+        tv_title.isRed()
+        tv_title.invalidate()
+
+        tv_title.requestLayout()
+        tv_title.setJText()
+
+
     }
 
     private fun queryByCity(text:String) {
@@ -115,6 +128,20 @@ class BookActivity:AppCompatActivity {
                     Log.d("TAG", "on failed executed ${it.message}")
                 })
 
+    }
+
+    //kotlin扩展函数
+    private fun TextView.isBold() = this.apply() {
+        paint.isFakeBoldText = true;
+        this.setTextColor(resources.getColor(android.R.color.black))
+    }
+
+    private fun TextView.isRed() = this.apply {
+        paint.color = Color.BLACK;
+    }
+
+    private fun TextView.setJText() = this.let {
+        it.setText("hello");
     }
 
 }

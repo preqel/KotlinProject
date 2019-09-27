@@ -7,6 +7,9 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 /**
@@ -20,7 +23,19 @@ public class ExampleInstrumentedTest {
     public void useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,1000,1000, TimeUnit.SECONDS,null);
+        threadPoolExecutor.getQueue().add(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("helloo");
+            }
+        });
+        threadPoolExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("er");
+            }
+        });
         assertEquals("com.preqel.kotlinproject", appContext.getPackageName());
     }
 }
